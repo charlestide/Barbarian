@@ -1,0 +1,17 @@
+{
+  "name": "barbarian",
+  "version": "0.1.0",
+  "description": "This tool that help you include thid-party module of javascript by simple way",
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "colors": "^1.1.2",
+    "commander": "^2.11.0",
+    "config": "^1.28.1",
+    "single-line-log": "^1.1.2",
+    "sync-request": "^4.1.0",
+    "underscore": "^1.8.3"
+  }
+}

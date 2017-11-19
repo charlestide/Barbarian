@@ -1,0 +1,7 @@
+{
+  "name": "config",
+  "version": "0.0.1",
+  "adapter": "bootCDN",
+  "scan": [],
+  "output": "schemas.bar.json"
+}
