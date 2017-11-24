@@ -8,19 +8,17 @@ const
     path = require('path'),
     _ = require('underscore'),
     slog = require('single-line-log').stdout;
-    config = require('config');
 
     let moduleMap = require('./moduleMap');
 
-exports = module.exports = new Scan();
-
-exports.Scan = Scan;
+exports = module.exports = Scan;
 
 /**
  * 搜索指定目录下的require语句
  * @constructor
  */
-function Scan() {
+function Scan(config) {
+    this.config = config;
     this.path = '';
     this.files = [];
     this.modules = new moduleMap.ModuleMap();
@@ -31,10 +29,6 @@ function Scan() {
  * @param dirPath
  */
 Scan.prototype.scan = function(dirPath = null) {
-    if (dirPath !== null) {
-        dirPath = "/Users/yuyu/Documents/workspace/AnotherWorld/Admin/public/js";
-    }
-
     this.path = dirPath;
 
     this.scanDir(dirPath);
@@ -49,19 +43,22 @@ Scan.prototype.scan = function(dirPath = null) {
  */
 Scan.prototype.scanDir = function(dirPath = null) {
     self = this;
-    let files = fs.readdirSync(dirPath);
 
-    files.forEach(function (file) {
-        filePath = dirPath+'/'+file;
-        let stats = fs.statSync(filePath);
-        // slog('Scanning dir：'+dirPath);
-        if (stats.isDirectory()) {
-            self.scanDir(filePath);
-        } else if (stats.isFile() && path.extname(filePath) === '.js') {
-             self.files.push(filePath);
-        }
-    });
+    if (fs.existsSync(dirPath)) {
 
+        let files = fs.readdirSync(dirPath);
+
+        files.forEach(function (file) {
+            filePath = dirPath + '/' + file;
+            let stats = fs.statSync(filePath);
+            console.log('Scanning dir：' + dirPath);
+            if (stats.isDirectory()) {
+                self.scanDir(filePath);
+            } else if (stats.isFile() && config.exts.indexOf(filePath.substring(1)) !== -1) {
+                self.files.push(filePath);
+            }
+        });
+    }
 };
 
 /**

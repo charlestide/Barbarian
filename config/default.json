@@ -1,7 +1,11 @@
 {
-  "name": "config",
-  "version": "0.0.1",
   "adapter": "bootCDN",
   "scan": [],
+  "exts": [
+    ".js",
+    ".html",
+    ".htm",
+    ".blade.php"
+  ],
   "output": "schemas.bar.json"
 }
